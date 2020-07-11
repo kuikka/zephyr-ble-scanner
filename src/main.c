@@ -32,13 +32,13 @@ static void interrupt_handler(struct device *dev)
 	while (uart_irq_update(dev) && uart_irq_is_pending(dev)) {
 		// Ignore input. Serve RX interrupt regardless.
 		if (uart_irq_rx_ready(dev)) {
-			u8_t buffer[64];
+			uint8_t buffer[64];
 
 			uart_fifo_read(dev, buffer, sizeof(buffer));
 		}
 
 		if (uart_irq_tx_ready(dev)) {
-			u8_t buffer[64];
+			uint8_t buffer[64];
 			int rb_len, send_len;
 
 			rb_len = ring_buf_get(&ringbuf, buffer, sizeof(buffer));
@@ -65,9 +65,9 @@ struct adv_data
 
 	// Sender's address
 	bt_addr_le_t addr;
-	s8_t rssi;
+	int8_t rssi;
 	// Type of advertisement
-	u8_t adv_type;
+	uint8_t adv_type;
 	// Advertisement data length
 	uint8_t adv_data_len;
 	// Advertisement data
@@ -77,7 +77,7 @@ struct adv_data
 K_MEM_SLAB_DEFINE(adv_data_slab, sizeof(struct adv_data), 64, 4);
 K_FIFO_DEFINE(adv_data_fifo);
 
-static void scan_cb(const bt_addr_le_t *addr, s8_t rssi, u8_t adv_type,
+static void scan_cb(const bt_addr_le_t *addr, int8_t rssi, uint8_t adv_type,
 		    struct net_buf_simple *buf)
 {
 	struct adv_data *data;
