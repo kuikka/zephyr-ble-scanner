@@ -19,6 +19,7 @@
 #include <stdio.h>
 
 #include "sensor_conn.h"
+#include "sensor_scan.h"
 
 static struct bt_conn *default_conn;
 
@@ -146,7 +147,7 @@ static void write_func_lywsd03mmc(struct bt_conn *conn, uint8_t err,
     }
 }
 
-void connected(struct bt_conn *conn, uint8_t err)
+static void on_connected(struct bt_conn *conn, uint8_t err)
 {
 	char addr[BT_ADDR_LE_STR_LEN];
 
@@ -202,12 +203,7 @@ void connected(struct bt_conn *conn, uint8_t err)
     }
 }
 
-void disconnect(struct bt_conn *conn)
-{
-    bt_conn_disconnect(conn, BT_HCI_ERR_REMOTE_USER_TERM_CONN);
-}
-
-void disconnected(struct bt_conn *conn, uint8_t reason)
+static void on_disconnected(struct bt_conn *conn, uint8_t reason)
 {
 	char addr[BT_ADDR_LE_STR_LEN];
 
@@ -223,6 +219,11 @@ void disconnected(struct bt_conn *conn, uint8_t reason)
 	default_conn = NULL;
 
 	start_scan();
+}
+
+void disconnect(struct bt_conn *conn)
+{
+    bt_conn_disconnect(conn, BT_HCI_ERR_REMOTE_USER_TERM_CONN);
 }
 
 void handle_command(const char *cmd, const char *arg)
@@ -259,7 +260,15 @@ void handle_command(const char *cmd, const char *arg)
 			start_scan();
             return;
 		}
-
 	}
 }
 
+static struct bt_conn_cb conn_callbacks = {
+		.connected = on_connected,
+		.disconnected = on_disconnected,
+};
+
+void sensor_conn_init()
+{
+	bt_conn_cb_register(&conn_callbacks);
+}
