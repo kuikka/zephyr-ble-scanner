@@ -18,7 +18,7 @@
 
 #include <stdio.h>
 
-#include "conn.h"
+#include "sensor_conn.h"
 
 static struct bt_conn *default_conn;
 

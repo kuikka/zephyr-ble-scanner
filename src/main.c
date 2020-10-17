@@ -28,7 +28,7 @@
 
 #include <stdio.h>
 
-#include "conn.h"
+#include "sensor_conn.h"
 
 LOG_MODULE_REGISTER(ble_scanner, LOG_LEVEL_INF);
 
