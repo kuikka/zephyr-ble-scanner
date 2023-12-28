@@ -11,20 +11,20 @@
 #include <zephyr/types.h>
 #include <stddef.h>
 #include <string.h>
-#include <sys/printk.h>
-#include <sys/util.h>
+#include <zephyr/sys/printk.h>
+#include <zephyr/sys/util.h>
 
-#include <bluetooth/bluetooth.h>
-#include <bluetooth/hci.h>
-#include <bluetooth/conn.h>
-#include <bluetooth/uuid.h>
-#include <bluetooth/gatt.h>
-#include <sys/byteorder.h>
+#include <zephyr/bluetooth/bluetooth.h>
+#include <zephyr/bluetooth/hci.h>
+#include <zephyr/bluetooth/conn.h>
+#include <zephyr/bluetooth/uuid.h>
+#include <zephyr/bluetooth/gatt.h>
+#include <zephyr/sys/byteorder.h>
 
-#include <usb/usb_device.h>
-#include <sys/ring_buffer.h>
-#include <drivers/uart.h>
-#include <logging/log.h>
+#include <zephyr/usb/usb_device.h>
+#include <zephyr/sys/ring_buffer.h>
+#include <zephyr/drivers/uart.h>
+#include <zephyr/logging/log.h>
 
 #include <stdio.h>
 
@@ -63,9 +63,9 @@ K_THREAD_DEFINE(uart_rx_thread_tid, MY_STACK_SIZE,
                 uart_rx_thread, NULL, NULL, NULL,
                 MY_PRIORITY, 0, 0);
 
-static struct device *usb_uart;
+static const struct device *usb_uart;
 
-static void interrupt_handler(struct device *dev)
+static void interrupt_handler(const struct device *dev, void* data)
 {
 	while (uart_irq_update(dev) && uart_irq_is_pending(dev)) {
 		if (uart_irq_rx_ready(dev)) {

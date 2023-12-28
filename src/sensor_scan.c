@@ -1,11 +1,11 @@
 #include <zephyr/types.h>
 #include <stddef.h>
 #include <string.h>
-#include <sys/printk.h>
-#include <sys/util.h>
+#include <zephyr/sys/printk.h>
+#include <zephyr/sys/util.h>
 
-#include <bluetooth/bluetooth.h>
-#include <bluetooth/hci.h>
+#include <zephyr/bluetooth/bluetooth.h>
+#include <zephyr/bluetooth/hci.h>
 
 #include "sensor_scan.h"
 
@@ -37,7 +37,6 @@ void start_scan()
 {
 	struct bt_le_scan_param scan_param = {
 		.type       = BT_HCI_LE_SCAN_PASSIVE,
-		.filter_dup = BT_HCI_LE_SCAN_FILTER_DUP_DISABLE,
 		.interval   = 0x0010,
 		.window     = 0x0010,
 	};

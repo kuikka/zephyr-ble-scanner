@@ -1,20 +1,20 @@
 #include <zephyr/types.h>
 #include <stddef.h>
 #include <string.h>
-#include <sys/printk.h>
-#include <sys/util.h>
+#include <zephyr/sys/printk.h>
+#include <zephyr/sys/util.h>
 
-#include <bluetooth/bluetooth.h>
-#include <bluetooth/hci.h>
-#include <bluetooth/conn.h>
-#include <bluetooth/uuid.h>
-#include <bluetooth/gatt.h>
-#include <sys/byteorder.h>
+#include <zephyr/bluetooth/bluetooth.h>
+#include <zephyr/bluetooth/hci.h>
+#include <zephyr/bluetooth/conn.h>
+#include <zephyr/bluetooth/uuid.h>
+#include <zephyr/bluetooth/gatt.h>
+#include <zephyr/sys/byteorder.h>
 
-#include <usb/usb_device.h>
-#include <sys/ring_buffer.h>
-#include <drivers/uart.h>
-#include <logging/log.h>
+#include <zephyr/usb/usb_device.h>
+#include <zephyr/sys/ring_buffer.h>
+#include <zephyr/drivers/uart.h>
+#include <zephyr/logging/log.h>
 
 #include <stdio.h>
 
