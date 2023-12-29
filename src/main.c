@@ -178,7 +178,7 @@ void main(void)
 
 	printk("Starting BLE scanner\n");
 
-	usb_uart = device_get_binding("CDC_ACM_0");
+	usb_uart = DEVICE_DT_GET_ONE(zephyr_cdc_acm_uart);
 	if (!usb_uart) {
 		LOG_ERR("CDC ACM device not found");
 		return;
